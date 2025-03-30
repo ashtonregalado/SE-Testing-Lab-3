@@ -1,16 +1,16 @@
-To run the folder individually:
-1. cd Frontend / cd Backend
-2. npm run dev for both
+To run locally:
 
-Added some codes after the set deadline but passed the other codes in time :)
+1. Create a database in MongoDB Compass
+2. Create a .env file inside the backend folder
+3. Add this inside the .env file: MONGO_URI_DEV = mongodb://localhost:27017/your_database_name
+4. Run npm i
+5. In a separate terminal, run 'npm run dev' in the root directory
+6. In another separate terminal, enter 'cd backend' and the run 'npm run dev'
 
-To run the Prelim folder:
-1. cd Prelim
-2. cd Frontend / cd Backend
-3. npm run dev for both
+To run the tests:
 
-To run the activity-3 folder:
-1. cd activity-3
-2. npm install
-3. from activity-3 folder, cd backend
-4. npm install
+1. Create a database in MongoDB Compass to use for testing
+2. Create a .env file inside the backend folder(if not yet created)
+3. Add this inside the .env file: MONGO_URI_TEST = mongodb://localhost:27017/your_database_name
+4. Run npm i
+5. in the root directory, run 'npm run test'

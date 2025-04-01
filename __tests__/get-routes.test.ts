@@ -28,7 +28,7 @@ describe("employee", () => {
       it("should return a 200", async () => {
         const response = await supertest(app).get("/get/all");
 
-        expect(200);
+        expect(response.status).toBe(200);
         expect(Array.isArray(response.body)).toBe(true);
         expect(response.body.length).toBeGreaterThan(0);
 

@@ -93,3 +93,51 @@ export const putFakeData = [
     id: "e5f6g7h8-i9j0-1234",
   },
 ];
+
+export const deleteFakeData = [
+  {
+    firstName: "Aurelia",
+    lastName: "Stormwatch",
+    groupName: "Artificial Intelligence",
+    role: "Senior Researcher",
+    expectedSalary: 95000,
+    expectedDateOfDefense: "2025-05-10",
+    id: "f1g2h3i4-j5k6-7890",
+  },
+  {
+    firstName: "Cassius",
+    lastName: "Moonstone",
+    groupName: "Quantum Computing",
+    role: "Postdoctoral Fellow",
+    expectedSalary: 71000,
+    expectedDateOfDefense: "2026-01-20",
+    id: "g2h3i4j5-k6l7-8901",
+  },
+  {
+    firstName: "Elysia",
+    lastName: "Brightstone",
+    groupName: "Robotics Engineering",
+    role: "PhD Researcher",
+    expectedSalary: 83000,
+    expectedDateOfDefense: "2024-12-15",
+    id: "h3i4j5k6-l7m8-9012",
+  },
+  {
+    firstName: "Orion",
+    lastName: "Blackthorn",
+    groupName: "Bioinformatics",
+    role: "Project Manager",
+    expectedSalary: 76000,
+    expectedDateOfDefense: "2025-08-01",
+    id: "i4j5k6l7-m8n9-0123",
+  },
+  {
+    firstName: "Callista",
+    lastName: "Silverstream",
+    groupName: "Data Science",
+    role: "Doctoral Candidate",
+    expectedSalary: 68000,
+    expectedDateOfDefense: "2027-03-22",
+    id: "j5k6l7m8-n9o0-1234",
+  },
+];

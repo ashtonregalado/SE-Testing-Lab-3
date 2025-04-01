@@ -12,7 +12,7 @@
   "dependencies": {
     "@types/dotenv": "^8.2.3",
     "dotenv": "^16.4.7",
-    "next": "15.2.2",
+    "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0"

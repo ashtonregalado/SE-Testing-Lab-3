@@ -4,16 +4,13 @@ import app from "../backend/src/server";
 import dotenv from "dotenv";
 import FormData from "../backend/models/FormData";
 
-
 dotenv.config();
 
-// Set test environment
 beforeAll(async () => {
   console.log("Clearing test database before tests...");
   await FormData.deleteMany({});
 });
 
-// Cleanup after all tests
 afterAll(async () => {
   console.log("Clearing test database after tests...");
   await FormData.deleteMany({});
@@ -42,8 +39,7 @@ describe("form submission", () => {
             expect(response.body).toMatchObject(validFormData);
             expect(response.body).toHaveProperty("_id");
           });
-
-        // Verify the data was actually saved to the database
+          
         const savedForm = await FormData.findOne({ id: validFormData.id });
         expect(savedForm).not.toBeNull();
         expect(savedForm?.firstName).toBe(validFormData.firstName);
@@ -55,7 +51,6 @@ describe("form submission", () => {
         const incompleteFormData = {
           firstName: "John",
           lastName: "Doe",
-          // Missing required fields
         };
 
         await supertest(app)
@@ -74,7 +69,6 @@ describe("form submission", () => {
       });
 
       it("should return a 500 error", async () => {
-        // Mock FormData.save() to simulate a database connection failure
         jest
           .spyOn(FormData.prototype, "save")
           .mockRejectedValue(new Error("Database connection failed"));

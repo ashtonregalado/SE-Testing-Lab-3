@@ -16,4 +16,4 @@ To run the tests:
 5. In the root directory, run:
 
    -to run all test files: "npm run test" or "yarn test"
-   -to run a single file: "npm test -- **tests**/name of test file" or "yarn test -- **tests**/name of test file"
+   -to run a single file: "npm test -- __tests__/name of test file" or "yarn test -- __tests__/name of test file"

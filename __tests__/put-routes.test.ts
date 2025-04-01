@@ -50,5 +50,39 @@ describe("employee", () => {
         expect(response.body.groupName).toBe(testEmployee.groupName);
       });
     });
+
+    describe("when employee ID is missing", () => {
+      it("should return 400, Employee ID is required", async () => {
+        const employeeId = null;
+
+        const response = await supertest(app)
+          .patch("/patch/employee")
+          .query({ employeeId });
+
+        expect(response.status).toBe(400);
+        expect(response.body).toHaveProperty(
+          "error",
+          "Employee ID is required"
+        );
+      });
+    });
+
+    describe("given the employee does not exist", () => {
+      it("should return a 404", async () => {
+        const queryId = "hnhsh";
+        const updatedEmployee = {
+          firstName: "Lars",
+          expectedSalary: 99999,
+        };
+
+        const response = await supertest(app)
+          .patch("/patch/employee")
+          .query({ employeeId: queryId })
+          .send(updatedEmployee);
+
+        expect(response.status).toBe(404);
+        expect(response.body).toHaveProperty("error", "Employee not found");
+      });
+    });
   });
 });

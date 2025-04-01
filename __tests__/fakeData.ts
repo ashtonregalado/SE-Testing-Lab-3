@@ -1,4 +1,4 @@
-export const fakeData = [
+export const getFakeData = [
   {
     firstName: "John",
     lastName: "Doe",
@@ -43,5 +43,53 @@ export const fakeData = [
     expectedSalary: 120000,
     expectedDateOfDefense: "2025-05-30",
     id: "u1v2w3x4y5",
+  },
+];
+
+export const putFakeData = [
+  {
+    firstName: "Zephyr",
+    lastName: "Quillsworth",
+    groupName: "Quantum Algorithms",
+    role: "Lead Researcher",
+    expectedSalary: 92000,
+    expectedDateOfDefense: "2024-03-22",
+    id: "a1b2c3d4-e5f6-7890",
+  },
+  {
+    firstName: "Seraphina",
+    lastName: "Montblanc",
+    groupName: "Neuroinformatics",
+    role: "PhD Candidate",
+    expectedSalary: 68000,
+    expectedDateOfDefense: "2025-07-14",
+    id: "b2c3d4e5-f6g7-8901",
+  },
+  {
+    firstName: "Thaddeus",
+    lastName: "Vanderhoff",
+    groupName: "Nanophotonics",
+    role: "Postdoc Fellow",
+    expectedSalary: 78000,
+    expectedDateOfDefense: "2023-11-30",
+    id: "c3d4e5f6-g7h8-9012",
+  },
+  {
+    firstName: "Isolde",
+    lastName: "Ravencroft",
+    groupName: "Bio-Robotics",
+    role: "Research Engineer",
+    expectedSalary: 72000,
+    expectedDateOfDefense: "2024-09-05",
+    id: "d4e5f6g7-h8i9-0123",
+  },
+  {
+    firstName: "Lysander",
+    lastName: "Whitethorne",
+    groupName: "Computational Linguistics",
+    role: "Doctoral Student",
+    expectedSalary: 62000,
+    expectedDateOfDefense: "2026-02-18",
+    id: "e5f6g7h8-i9j0-1234",
   },
 ];

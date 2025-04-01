@@ -1,10 +1,8 @@
-// export default connectDB;
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variables
+dotenv.config();
 
-// Determine which database to use
 const MONGO_URI =
   process.env.NODE_ENV === "test"
     ? process.env.MONGO_URI_TEST
@@ -19,7 +17,7 @@ if (!MONGO_URI) {
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI); // No need for extra options in Mongoose 6+
+    await mongoose.connect(MONGO_URI);
     console.log(`MongoDB Connected: ${MONGO_URI}`);
   } catch (error) {
     console.error("MongoDB Connection Error:", error);

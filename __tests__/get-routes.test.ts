@@ -3,25 +3,22 @@ import mongoose from "mongoose";
 import app from "../backend/src/server";
 import dotenv from "dotenv";
 import FormData from "../backend/models/FormData";
-import { fakeData } from "./fakeData";
+import { getFakeData } from "./fakeData";
 import { FormDataProps } from "../backend/src/data";
 
 dotenv.config();
 
-// Set test environment
 beforeAll(async () => {
   console.log("Clearing test database before tests...");
   await FormData.deleteMany({});
 
-  await FormData.insertMany(fakeData);
+  await FormData.insertMany(getFakeData);
 });
 
-// Cleanup after all tests
 afterAll(async () => {
   console.log("Clearing test database after tests...");
   await FormData.deleteMany({});
 
-  // Close the Mongoose connection properly
   await mongoose.connection.close();
 });
 
@@ -67,11 +64,10 @@ describe("employee", () => {
 
     describe("when the database connection fails", () => {
       afterEach(() => {
-        jest.restoreAllMocks(); // Restore original implementation after each test
+        jest.restoreAllMocks();
       });
 
       it("should return a 500 error", async () => {
-        // Mock FormData.find() to simulate a database connection failure
         jest
           .spyOn(FormData, "find")
           .mockRejectedValue(new Error("Database connection failed"));

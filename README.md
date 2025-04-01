@@ -13,4 +13,7 @@ To run the tests:
 2. Create a .env file inside the root directory
 3. Add this inside the .env file: MONGO_URI_TEST = mongodb://localhost:27017/your_database_name
 4. Run npm i
-5. in the root directory, run 'npm run test'
+5. In the root directory, run:
+
+   -to run all test files: "npm run test" or "yarn test"
+   -to run a single file: "npm test -- **tests**/name of test file" or "yarn test -- **tests**/name of test file"

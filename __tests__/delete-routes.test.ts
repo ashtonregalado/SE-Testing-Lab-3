@@ -4,74 +4,82 @@ import app from "../backend/src/server";
 import dotenv from "dotenv";
 import FormData from "../backend/models/FormData";
 import { deleteFakeData } from "./fakeData";
+
 dotenv.config();
 
-beforeEach(async () => {
-  console.log("Setting up fresh test data for DELETE tests...");
+// Helper function to clear database
+const clearDatabase = async () => {
   await FormData.deleteMany({});
+};
+
+// Helper function to insert fake data
+const insertFakeData = async () => {
   await FormData.insertMany(deleteFakeData);
+};
+
+beforeAll(async () => {
+  console.log("Clearing test database before tests...");
+  await clearDatabase();
+  await insertFakeData();
 });
 
 afterAll(async () => {
-  console.log("Closing database connection...");
+  console.log("Clearing test database after tests...");
+  await clearDatabase();
   await mongoose.connection.close();
 });
 
 describe("DELETE /employee", () => {
-  it("should delete the employee and return 200", async () => {
-    const existingEmployee = await FormData.findOne();
-    const employeeId = existingEmployee?.id;
+  describe("when deleting an existing employee", () => {
+    it("should delete the employee and return 200", async () => {
+      const existingEmployee = await FormData.findOne();
+      const employeeId = existingEmployee?.id;
 
-    console.log("Deleting Employee:", existingEmployee);
+      const response = await supertest(app)
+        .delete("/delete/employee")
+        .query({ employeeId });
 
-    const response = await supertest(app)
-      .delete("/delete/employee")
-      .query({ employeeId });
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        message: "Employee deleted successfully",
+        employee: expect.objectContaining({
+          id: employeeId,
+        }),
+      });
 
-    console.log("Response:", response.body);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({
-      message: "Employee deleted successfully",
-      employee: expect.objectContaining({
-        id: employeeId,
-      }),
-    });
-
-    const deletedEmployee = await FormData.findOne({ id: employeeId });
-    expect(deletedEmployee).toBeNull();
-  });
-
-  it("should return 400 when no employeeId is provided", async () => {
-    const response = await supertest(app).delete("/delete/employee");
-
-    console.log("Response for missing ID:", response.body);
-
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual({
-      message: "Employee ID is required",
+      const deletedEmployee = await FormData.findOne({ id: employeeId });
+      expect(deletedEmployee).toBeNull();
     });
   });
 
-  it("should return 500 when the database connection fails", async () => {
-    const existingEmployee = await FormData.findOne();
-    const employeeId = existingEmployee?.id;
+  describe("when no employeeId is provided", () => {
+    it("should return 400 when no employeeId is provided", async () => {
+      const response = await supertest(app).delete("/delete/employee");
 
-    jest
-      .spyOn(FormData, "findOneAndDelete")
-      .mockRejectedValue(new Error("Database connection failed"));
-
-    const response = await supertest(app)
-      .delete("/delete/employee")
-      .query({ employeeId });
-
-    console.log("Response for DB failure:", response.body);
-
-    expect(response.status).toBe(500);
-    expect(response.body).toEqual({
-      message: "Internal Server Error",
+      expect(response.status).toBe(400);
+      expect(response.body).toEqual({
+        message: "Employee ID is required",
+      });
     });
+  });
 
-    jest.restoreAllMocks();
+  describe("when database connection fails", () => {
+    it("should return 500 when the database connection fails", async () => {
+      const existingEmployee = await FormData.findOne();
+      const employeeId = existingEmployee?.id;
+
+      jest.spyOn(FormData, "findOneAndDelete").mockRejectedValue(new Error("Database connection failed"));
+
+      const response = await supertest(app)
+        .delete("/delete/employee")
+        .query({ employeeId });
+
+      expect(response.status).toBe(500);
+      expect(response.body).toEqual({
+        message: "Internal Server Error",
+      });
+
+      jest.restoreAllMocks();
+    });
   });
 });

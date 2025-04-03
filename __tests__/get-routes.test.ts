@@ -24,6 +24,7 @@ afterAll(async () => {
 
 describe("employee", () => {
   describe("get employee route", () => {
+    //Happy Path
     describe("given the employee does exist", () => {
       it("should return a 200", async () => {
         const response = await supertest(app).get("/get/all");
@@ -53,6 +54,7 @@ describe("employee", () => {
     });
   });
 
+  //Sad Paths
   describe("when using an invalid endpoint path", () => {
     it("should return 404 Not Found", async () => {
       const response = await supertest(app).get("/get/allemployees");

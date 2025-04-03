@@ -19,6 +19,7 @@ afterAll(async () => {
 
 describe("form submission", () => {
   describe("POST /post/form", () => {
+    //Happy Path
     describe("given valid form data", () => {
       it("should return 201 and save the form data", async () => {
         const validFormData = {
@@ -39,13 +40,14 @@ describe("form submission", () => {
             expect(response.body).toMatchObject(validFormData);
             expect(response.body).toHaveProperty("_id");
           });
-          
+
         const savedForm = await FormData.findOne({ id: validFormData.id });
         expect(savedForm).not.toBeNull();
         expect(savedForm?.firstName).toBe(validFormData.firstName);
       });
     });
 
+    //Sad Paths
     describe("given incomplete form data", () => {
       it("should return 500 with error message", async () => {
         const incompleteFormData = {

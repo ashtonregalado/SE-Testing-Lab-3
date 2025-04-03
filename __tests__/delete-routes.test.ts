@@ -7,12 +7,10 @@ import { deleteFakeData } from "./fakeData";
 
 dotenv.config();
 
-// Helper function to clear database
 const clearDatabase = async () => {
   await FormData.deleteMany({});
 };
 
-// Helper function to insert fake data
 const insertFakeData = async () => {
   await FormData.insertMany(deleteFakeData);
 };
@@ -30,6 +28,7 @@ afterAll(async () => {
 });
 
 describe("DELETE /employee", () => {
+  //Happy Path
   describe("when deleting an existing employee", () => {
     it("should delete the employee and return 200", async () => {
       const existingEmployee = await FormData.findOne();
@@ -52,6 +51,7 @@ describe("DELETE /employee", () => {
     });
   });
 
+  //Sad Paths
   describe("when no employeeId is provided", () => {
     it("should return 400 when no employeeId is provided", async () => {
       const response = await supertest(app).delete("/delete/employee");
@@ -68,7 +68,9 @@ describe("DELETE /employee", () => {
       const existingEmployee = await FormData.findOne();
       const employeeId = existingEmployee?.id;
 
-      jest.spyOn(FormData, "findOneAndDelete").mockRejectedValue(new Error("Database connection failed"));
+      jest
+        .spyOn(FormData, "findOneAndDelete")
+        .mockRejectedValue(new Error("Database connection failed"));
 
       const response = await supertest(app)
         .delete("/delete/employee")
